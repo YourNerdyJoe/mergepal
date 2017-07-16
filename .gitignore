@@ -1,0 +1,10 @@
+.vs/*
+ipch/*
+Debug/*
+mergepal/Debug/*
+Release/*
+mergepal/Release/*
+
+*.dll
+*.opensdf
+*.suo
