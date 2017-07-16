@@ -11,5 +11,5 @@ mergepal [options] bmps
 
 Options
 -------
-- -d [dir]\toutput directory (default: [same as BMPs])
-- -o [name]\toutput palette name (default: palette)
+- -d [dir] - output directory (default: [same as BMPs])
+- -o [name] - output palette name (default: palette)
