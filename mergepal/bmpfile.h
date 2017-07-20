@@ -50,6 +50,6 @@ inline const uint8_t* BmpFile::getPixels() const { return pixel_data; }
 inline size_t BmpFile::getWidth() const { return width; }
 inline size_t BmpFile::getHeight() const { return height; }
 
-inline uint8_t BmpFile::getPixel(size_t x, size_t y) const { return pixel_data[y*width+x]; }
+inline uint8_t BmpFile::getPixel(size_t x, size_t y) const { return pixel_data[(height-y-1)*width+x]; }
 
 #endif
