@@ -114,11 +114,13 @@
     <ClCompile Include="bmpfile.cpp" />
     <ClCompile Include="color.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="optionparser.cpp" />
     <ClCompile Include="palmerger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bmpfile.h" />
     <ClInclude Include="color.h" />
+    <ClInclude Include="optionparser.h" />
     <ClInclude Include="palmerger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

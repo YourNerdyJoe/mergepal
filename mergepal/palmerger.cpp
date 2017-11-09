@@ -20,6 +20,8 @@
 #include <iostream>
 #include "bmpfile.h"
 
+static const int TILE_SIZE = 8;
+
 static inline std::string replaceExtAndDir(const std::string& filename, const std::string& ext, const std::string& dir)
 {
 	//replace file extension
@@ -42,7 +44,7 @@ static inline std::string replaceExtAndDir(const std::string& filename, const st
 	return ret;
 }
 
-bool PalMerger::parseBmp(const std::string& filename, const std::string& dir)
+bool PalMerger::parseBmp(const std::string& filename, const std::string& dir, size_t mt_w, size_t mt_h)
 {
 	BmpFile bmp;
 
@@ -58,35 +60,41 @@ bool PalMerger::parseBmp(const std::string& filename, const std::string& dir)
 		size_t width = bmp.getWidth();
 		size_t height = bmp.getHeight();
 
-		size_t tile_width = width / 8;
-		size_t tile_height = height / 8;
+		size_t tile_width = width / TILE_SIZE;
+		size_t tile_height = height / TILE_SIZE;
 
 		std::ofstream img_file(img_filename, std::ios::binary);
 
 		//split into 8x8 tiles
-		for(size_t tile_y = 0; tile_y < tile_height; tile_y++)
+		for(size_t mt_y = 0; mt_y < tile_height; mt_y += mt_h)
 		{
-			for(size_t tile_x = 0; tile_x < tile_width; tile_x++)
+			for(size_t mt_x = 0; mt_x < tile_width; mt_x += mt_w)
 			{
-				for(size_t y = 0; y < 8; y++)
+				for(size_t tile_y = 0; tile_y < mt_h; tile_y++)
 				{
-					for(size_t x = 0; x < 8; x++)
+					for(size_t tile_x = 0; tile_x < mt_w; tile_x++)
 					{
-						//add color to palette if not there
-						//then write new index to file
-						//error if too many colors in palette
+						for(size_t y = 0; y < TILE_SIZE; y++)
+						{
+							for(size_t x = 0; x < TILE_SIZE; x++)
+							{
+								//add color to palette if not there
+								//then write new index to file
+								//error if too many colors in palette
 
-						uint8_t col_idx = bmp.getPixel(tile_x * 8 + x, tile_y * 8 + y);
-						unsigned int common_pal_idx = colorToIndex(palette[col_idx]);
-						if(common_pal_idx >= PALETTE_SIZE)
-						{
-							std::cout << "error\n";
-							std::cerr << "Palette has exceeded 256 colors\n";
-							return false;
-						}
-						else
-						{
-							img_file.write((const char*)&common_pal_idx, 1);
+								uint8_t col_idx = bmp.getPixel((mt_x + tile_x) * TILE_SIZE + x, (mt_y + tile_y) * TILE_SIZE + y);
+								unsigned int common_pal_idx = colorToIndex(palette[col_idx]);
+								if(common_pal_idx >= PALETTE_SIZE)
+								{
+									std::cout << "error\n";
+									std::cerr << "Palette has exceeded 256 colors\n";
+									return false;
+								}
+								else
+								{
+									img_file.write((const char*)&common_pal_idx, 1);
+								}
+							}
 						}
 					}
 				}

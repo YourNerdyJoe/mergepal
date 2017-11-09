@@ -24,7 +24,7 @@
 class PalMerger
 {
 public:
-	bool parseBmp(const std::string& filename, const std::string& dir = std::string());
+	bool parseBmp(const std::string& filename, const std::string& dir = std::string(), size_t mt_w = 1, size_t mt_h = 1);
 	bool savePalette(const std::string& filename, const std::string& dir = std::string());
 
 	unsigned int colorToIndex(color col);

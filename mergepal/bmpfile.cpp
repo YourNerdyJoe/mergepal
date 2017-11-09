@@ -48,6 +48,13 @@ bool BmpFile::load(const std::string& filename)
 
 	std::ifstream bmp_file(filename, std::ios::binary);
 
+	if(!bmp_file.is_open())
+	{
+		std::cout << "error\n";
+		std::cerr << "Unable to open " << filename << "\n";
+		return false;
+	}
+
 	//get header
 	readVarFromFile(bmp_file, bmp_header, BMP_HEADER_OFFSET);
 

@@ -27,6 +27,9 @@
     <ClCompile Include="bmpfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="optionparser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="palmerger.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="optionparser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

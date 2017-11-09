@@ -18,6 +18,7 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
+#include "optionparser.h"
 #include "palmerger.h"
 
 void printUsage();
@@ -68,7 +69,12 @@ int main(int argc, char* argv[])
 	{
 		std::string filename = argv[i];
 		replaceBackslash(filename);
-		if(!pal_merger.parseBmp(filename, output_dir))
+		OptionParser opt_parser(filename + ".txt");
+		if(!pal_merger.parseBmp(
+			filename,
+			output_dir,
+			opt_parser.getMetatileWidth(),
+			opt_parser.getMetatileHeight()))
 		{
 			return 1;
 		}
